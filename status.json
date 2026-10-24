@@ -1,6 +1,6 @@
 {
- "updated": "Oct 24, 2026 3:25 PM MT",
- "note": "Maintenance ON. W4 swap done: 6.19.1 code in place, DB still 6.0.3. W5 DB upgrade is next.",
+ "updated": "Oct 24, 2026 3:32 PM MT",
+ "note": "Maintenance ON. W5 DB upgrade done (Ed). W6 click-through next: footer version, contacts, contributions, memberships, events, public donate and membership pages.",
  "sections": [
   {
    "name": "Prerequisites",
@@ -139,14 +139,14 @@
     [
      "W5",
      "Database upgrade",
-     "doing",
-     "Expected: Smarty 2 to 5, FTS index, job.execute notes. Last line: code 6.19.1 | db 6.19.1",
+     "done",
+     "DB upgrade finished (Ed reports done).",
      "bash ~/bin/civi-live.sh db"
     ],
     [
      "W6",
      "Click-through on live (maintenance still ON)",
-     "open",
+     "doing",
      "Footer version, dashboard, Find Contacts, SearchKit, membership, contribution, donate + membership pages, a report + ExtendedReport, front page, wp-admin. STOP on white screen, broken payment page, or 60 min",
      ""
     ],
