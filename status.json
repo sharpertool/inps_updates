@@ -1,6 +1,6 @@
 {
- "updated": "Oct 24, 2026 3:38 PM MT",
- "note": "Maintenance ON. CiviCRM is 6.19.1 (code and DB). W6 click-through in progress: footer verified, site looks fine. Remaining: donate and membership pages, then W7 maintenance OFF.",
+ "updated": "Oct 24, 2026 3:45 PM MT",
+ "note": "UPGRADE DONE: CiviCRM 6.19.1 (code and DB), maintenance OFF, site live. Outside checks pass: donate, membership, rare-plant, login, REST all 200 with no PHP errors. Next: post-upgrade items (Site Health, cron, extensions, backups).",
  "sections": [
   {
    "name": "Prerequisites",
@@ -146,15 +146,15 @@
     [
      "W6",
      "Click-through on live (maintenance still ON)",
-     "doing",
-     "Footer shows 6.19.1; main site looks fine. Still to check: public donate and membership pages, contribution and membership screens.",
+     "done",
+     "Footer 6.19.1, site looks fine.",
      ""
     ],
     [
      "W7",
      "Maintenance OFF",
-     "open",
-     "Reload home and donate in a private window",
+     "done",
+     "Maintenance OFF. Outside checks: donate, membership, rare-plant, login, REST all 200, no PHP errors.",
      ""
     ]
    ]
