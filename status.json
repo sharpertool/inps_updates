@@ -1,6 +1,6 @@
 {
- "updated": "Oct 24, 2026 3:32 PM MT",
- "note": "Maintenance ON. W5 DB upgrade done (Ed). W6 click-through next: footer version, contacts, contributions, memberships, events, public donate and membership pages.",
+ "updated": "Oct 24, 2026 3:38 PM MT",
+ "note": "Maintenance ON. CiviCRM is 6.19.1 (code and DB). W6 click-through in progress: footer verified, site looks fine. Remaining: donate and membership pages, then W7 maintenance OFF.",
  "sections": [
   {
    "name": "Prerequisites",
@@ -147,7 +147,7 @@
      "W6",
      "Click-through on live (maintenance still ON)",
      "doing",
-     "Footer version, dashboard, Find Contacts, SearchKit, membership, contribution, donate + membership pages, a report + ExtendedReport, front page, wp-admin. STOP on white screen, broken payment page, or 60 min",
+     "Footer shows 6.19.1; main site looks fine. Still to check: public donate and membership pages, contribution and membership screens.",
      ""
     ],
     [
