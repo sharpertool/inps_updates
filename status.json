@@ -1,6 +1,6 @@
 {
- "updated": "Oct 24, 2026 3:05 PM MT",
- "note": "Maintenance ON. W2 backup stopped on a bug in my sanity check (grep -q + pipefail gives exit 141), not a data problem. Fixed script sent; re-run backup after upload. Nothing on the site changed.",
+ "updated": "Oct 24, 2026 3:12 PM MT",
+ "note": "Maintenance ON. W2 backup done (Ed reports OK). Next: W3, download the backup folder to your computer, then W4 swap.",
  "sections": [
   {
    "name": "Prerequisites",
@@ -118,14 +118,14 @@
     [
      "W2",
      "Backup",
-     "open",
-     "Retry: upload fixed civi-live.sh to ~/bin, then run. (First attempt left a partial folder inps-backups/20261024-165443, safe to delete.)",
+     "done",
+     "Backup finished. Sizes being checked.",
      "bash ~/bin/civi-live.sh backup"
     ],
     [
      "W3",
      "Pull backup to your machine",
-     "open",
+     "doing",
      "File Manager: download ~/inps-backups/<newest>",
      ""
     ],
