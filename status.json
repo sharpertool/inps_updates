@@ -1,6 +1,6 @@
 {
- "updated": "Oct 24, 2026 2:55 PM MT",
- "note": "W2 fixed: the script read an example DSN from a comment in the settings file. Fixed script (anchored to the real define) tested locally. Next: upload to ~/bin, then W1 maintenance ON and W2 backup. Site is live on 6.0.3, nothing changed.",
+ "updated": "Oct 24, 2026 2:58 PM MT",
+ "note": "Maintenance ON (2nd window). Running W2 backup with the fixed script. Site was live on 6.0.3 before; nothing changed yet.",
  "sections": [
   {
    "name": "Prerequisites",
@@ -111,15 +111,15 @@
     [
      "W1",
      "Maintenance ON in LightStart",
-     "open",
-     "Maintenance is OFF now. Turn it ON again right before the backup.",
+     "done",
+     "Maintenance ON again at ~2:57 PM MT.",
      ""
     ],
     [
      "W2",
      "Backup",
      "open",
-     "Script fixed (parser matched a comment example). Waiting for Ed to upload the new civi-live.sh to ~/bin, then re-run after maintenance ON.",
+     "Fixed script uploaded. Running now: bash ~/bin/civi-live.sh backup",
      "bash ~/bin/civi-live.sh backup"
     ],
     [
