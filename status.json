@@ -1,6 +1,6 @@
 {
- "updated": "Oct 24, 2026 3:55 PM MT",
- "note": "Upgrade done (6.19.1). A1 done: live Site Health has 0 critical, 1 recommended (object cache needs Redis from Acorn). Next: A2 Update Check job and cron.",
+ "updated": "Oct 24, 2026 4:00 PM MT",
+ "note": "Upgrade done (6.19.1). A1 done. A2 deferred by Ed: cron and jobs left unchanged (only process_mailing runs every 30 min); nothing enabled without a preview of exactly what would run.",
  "sections": [
   {
    "name": "Prerequisites",
@@ -212,8 +212,8 @@
     [
      "A2",
      "Update Check job and cron",
-     "doing",
-     "Enable job; cron to Job.execute every 15 min, preview jobs first",
+     "skip",
+     "Deferred by Ed. Cron and jobs unchanged. Revisit with a read-only preview first. Rotate the CiviMailCron password when the cron is next edited.",
      ""
     ],
     [
