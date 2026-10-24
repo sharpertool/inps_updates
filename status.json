@@ -1,6 +1,6 @@
 {
- "updated": "Oct 24, 2026 3:35 PM MT",
- "note": "Upgrade done (6.19.1). A1: Site Health still shows 2 critical (PHP session, REST timeout). Cause: CiviCRM calls session_start() on every web request and holds the lock during the loopback. Fix is a tiny mu-plugin, testing on staging first.",
+ "updated": "Oct 24, 2026 3:50 PM MT",
+ "note": "Upgrade done (6.19.1). A1: mu-plugin inps-session-release.php v2 cleared both critical Site Health items on staging. Next: copy it to live mu-plugins and recheck.",
  "sections": [
   {
    "name": "Prerequisites",
@@ -206,7 +206,7 @@
      "A1",
      "Site Health recheck",
      "doing",
-     "Cause found (Civi session lock). Staging test of inps-session-release.php mu-plugin, then live.",
+     "Staging clean with the session-release mu-plugin. Copy to live wp-content/mu-plugins and reload Site Health.",
      ""
     ],
     [
