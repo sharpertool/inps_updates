@@ -1,0 +1,250 @@
+{
+ "updated": "Oct 24, 2026 2:50 PM MT",
+ "note": "W1 done (maintenance on, then turned off again). W2 backup stopped at its safety check: the script read the wrong DB name from settings. Diagnosing. Site is live on 6.0.3, nothing changed.",
+ "sections": [
+  {
+   "name": "Prerequisites",
+   "items": [
+    [
+     "P1",
+     "Disk under quota",
+     "done",
+     "3.79 of 5 GB at 11:23 AM MT",
+     ""
+    ],
+    [
+     "P2",
+     "PHP patched",
+     "done",
+     "8.4.27, built Oct 22",
+     ""
+    ],
+    [
+     "P3",
+     "HTTPS forced on live",
+     "done",
+     "since Oct 21",
+     ""
+    ],
+    [
+     "P4",
+     "Staging upgraded and rehearsed",
+     "done",
+     "6.0.3 to 6.19.1 clean, Oct 21",
+     ""
+    ],
+    [
+     "P5",
+     "Staging click-through test finished",
+     "done",
+     "Donate, membership, reports, search on staging",
+     ""
+    ],
+    [
+     "P6",
+     "wp-cli and 6.19.1 zip on server",
+     "done",
+     "both present",
+     ""
+    ],
+    [
+     "P7",
+     "Outside SSH/SFTP",
+     "skip",
+     "Not needed; panel Terminal and File Manager",
+     ""
+    ],
+    [
+     "P8",
+     "Helper script in ~/bin",
+     "done",
+     "~/bin/civi-live.sh",
+     ""
+    ],
+    [
+     "P9",
+     "Read-only status run",
+     "done",
+     "code 6.0.3 | db 6.0.3, PHP 8.4.27, settings + zip present",
+     ""
+    ],
+    [
+     "P10",
+     "Newest JetBackup noted",
+     "done",
+     "Daily snapshot Oct 24 5:37 AM MT, civicrm + wpinps, 14 kept",
+     ""
+    ],
+    [
+     "P11",
+     "No WordPress update pending",
+     "done",
+     "WordPress 7.1.3 is latest (plugins/themes not confirmed)",
+     ""
+    ],
+    [
+     "P12",
+     "LightStart ready",
+     "done",
+     "Installed; manual toggle works (no MCP)",
+     ""
+    ],
+    [
+     "P13",
+     "Rollback section approved",
+     "done",
+     "Ed reviewed; one-page card regenerated",
+     ""
+    ],
+    [
+     "P14",
+     "60 to 90 minute block chosen",
+     "done",
+     "Window started 2:38 PM MT Oct 24",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "Live window",
+   "items": [
+    [
+     "W1",
+     "Maintenance ON in LightStart",
+     "done",
+     "Maintenance on and confirmed (503 maintenance page); turned off again after the W2 stop",
+     ""
+    ],
+    [
+     "W2",
+     "Backup",
+     "open",
+     "STOPPED: \"civicrm DB is not idaho997_civicrm\". Nothing changed. Diagnosing the script.",
+     "bash ~/bin/civi-live.sh backup"
+    ],
+    [
+     "W3",
+     "Pull backup to your machine",
+     "open",
+     "File Manager: download ~/inps-backups/<newest>",
+     ""
+    ],
+    [
+     "W4",
+     "Swap in 6.19.1",
+     "open",
+     "Ends with OK new code in place; BASEURL must be https",
+     "bash ~/bin/civi-live.sh swap"
+    ],
+    [
+     "W5",
+     "Database upgrade",
+     "open",
+     "Expected: Smarty 2 to 5, FTS index, job.execute notes. Last line: code 6.19.1 | db 6.19.1",
+     "bash ~/bin/civi-live.sh db"
+    ],
+    [
+     "W6",
+     "Click-through on live (maintenance still ON)",
+     "open",
+     "Footer version, dashboard, Find Contacts, SearchKit, membership, contribution, donate + membership pages, a report + ExtendedReport, front page, wp-admin. STOP on white screen, broken payment page, or 60 min",
+     ""
+    ],
+    [
+     "W7",
+     "Maintenance OFF",
+     "open",
+     "Reload home and donate in a private window",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "Rollback (only if W6 fails)",
+   "items": [
+    [
+     "R1",
+     "Keep maintenance ON",
+     "open",
+     "",
+     ""
+    ],
+    [
+     "R2",
+     "List backups",
+     "open",
+     "",
+     "ls ~/inps-backups"
+    ],
+    [
+     "R3",
+     "Rollback (type ROLLBACK when asked)",
+     "open",
+     "",
+     "bash ~/bin/civi-live.sh rollback ~/inps-backups/<folder>"
+    ],
+    [
+     "R4",
+     "Check",
+     "open",
+     "Prints code 6.0.3 | db 6.0.3; load site, find a contact, open a membership, load donate, then maintenance OFF",
+     ""
+    ],
+    [
+     "R5",
+     "If our backup is bad",
+     "open",
+     "Acorn ticket for ONLY idaho997_civicrm from the JetBackup snapshot (Oct 24 5:37 AM MT). Never restore the whole account.",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "After the upgrade",
+   "items": [
+    [
+     "A1",
+     "Site Health recheck",
+     "open",
+     "PHP session, REST loopback; session fix on staging first if still critical",
+     ""
+    ],
+    [
+     "A2",
+     "Update Check job and cron",
+     "open",
+     "Enable job; cron to Job.execute every 15 min, preview jobs first",
+     ""
+    ],
+    [
+     "A3",
+     "Update iATS and ExtendedReport",
+     "open",
+     "Staging first, one at a time",
+     ""
+    ],
+    [
+     "A4",
+     "Prune backups",
+     "open",
+     "Keep newest 2 to 3, copy each to your machine",
+     ""
+    ],
+    [
+     "A5",
+     "2027 Rare Plant Workshop event",
+     "open",
+     "Copy event 12 on staging",
+     ""
+    ],
+    [
+     "A6",
+     "Check if the 500 sent e-mails limit is daily",
+     "open",
+     "Before any mailing",
+     ""
+    ]
+   ]
+  }
+ ]
+}
