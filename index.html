@@ -1,12 +1,12 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>INPS upgrade checklist (live)</title>
 <style>body{font:15px/1.4 -apple-system,Segoe UI,sans-serif;max-width:900px;margin:20px auto;padding:0 14px;color:#222}
 h2{margin-top:26px;border-bottom:2px solid #ddd}.it{display:flex;gap:10px;border:1px solid #ddd;border-radius:8px;padding:7px 10px;margin:6px 0;background:#fafafa}
-.it.done{background:#eaf7ea;border-color:#9c9}.it.skip{opacity:.55}.it.open{background:#fff}.tag{width:70px;font-weight:600;font-size:12px;padding-top:2px}
+.it.done{background:#eaf7ea;border-color:#9c9}.it.skip{opacity:.55}.it.doing{background:#fff6d6;border-color:#e0a800;border-width:2px}.doing .tag{color:#b07800;animation:p 1.2s infinite}@keyframes p{50%{opacity:.35}}.it.open{background:#fff}.tag{width:70px;font-weight:600;font-size:12px;padding-top:2px}
 .done .tag{color:#2a7}.open .tag{color:#b60}.id{width:38px;font-weight:700}.d{color:#555;font-size:13px}code{display:block;background:#222;color:#9f9;padding:3px 7px;border-radius:4px;margin-top:4px;font-size:13px}
 #note{background:#fff3cd;border:1px solid #e0c060;padding:8px 12px;border-radius:8px;margin:10px 0}</style></head><body>
 <h1>INPS CiviCRM live upgrade, 6.0.3 to 6.19.1</h1><div id="meta" class="d"></div><div id="note"></div><div id="c"></div>
 <script>
-const L={done:'DONE',open:'PENDING',skip:'SKIPPED'};
+const L={done:'DONE',open:'PENDING',skip:'SKIPPED',doing:'IN PROGRESS'};
 async function go(){try{const j=await (await fetch('status.json?'+Date.now(),{cache:'no-store'})).json();
 document.getElementById('meta').textContent='Updated '+j.updated+' (refreshes by itself every 5 seconds)';
 document.getElementById('note').textContent=j.note;

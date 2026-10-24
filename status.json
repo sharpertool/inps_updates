@@ -1,6 +1,6 @@
 {
- "updated": "Oct 24, 2026 2:58 PM MT",
- "note": "Maintenance ON (2nd window). Running W2 backup with the fixed script. Site was live on 6.0.3 before; nothing changed yet.",
+ "updated": "Oct 24, 2026 3:01 PM MT",
+ "note": "Maintenance ON. W2 backup is running now.",
  "sections": [
   {
    "name": "Prerequisites",
@@ -118,8 +118,8 @@
     [
      "W2",
      "Backup",
-     "open",
-     "Fixed script uploaded. Running now: bash ~/bin/civi-live.sh backup",
+     "doing",
+     "Running now: bash ~/bin/civi-live.sh backup",
      "bash ~/bin/civi-live.sh backup"
     ],
     [
