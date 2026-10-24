@@ -1,6 +1,6 @@
 {
- "updated": "Oct 24, 2026 3:12 PM MT",
- "note": "Maintenance ON. W2 backup done (Ed reports OK). Next: W3, download the backup folder to your computer, then W4 swap.",
+ "updated": "Oct 24, 2026 3:25 PM MT",
+ "note": "Maintenance ON. W4 swap done: 6.19.1 code in place, DB still 6.0.3. W5 DB upgrade is next.",
  "sections": [
   {
    "name": "Prerequisites",
@@ -119,27 +119,27 @@
      "W2",
      "Backup",
      "done",
-     "Backup finished. Sizes being checked.",
+     "Backup finished OK (dump checks passed).",
      "bash ~/bin/civi-live.sh backup"
     ],
     [
      "W3",
      "Pull backup to your machine",
-     "doing",
-     "File Manager: download ~/inps-backups/<newest>",
+     "done",
+     "Backup tgz downloaded to Ed's computer.",
      ""
     ],
     [
      "W4",
      "Swap in 6.19.1",
-     "open",
-     "Ends with OK new code in place; BASEURL must be https",
+     "done",
+     "OK new code in place (6.19.1 code, DB still 6.0.3).",
      "bash ~/bin/civi-live.sh swap"
     ],
     [
      "W5",
      "Database upgrade",
-     "open",
+     "doing",
      "Expected: Smarty 2 to 5, FTS index, job.execute notes. Last line: code 6.19.1 | db 6.19.1",
      "bash ~/bin/civi-live.sh db"
     ],
