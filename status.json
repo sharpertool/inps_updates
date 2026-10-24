@@ -1,6 +1,6 @@
 {
- "updated": "Oct 24, 2026 3:45 PM MT",
- "note": "UPGRADE DONE: CiviCRM 6.19.1 (code and DB), maintenance OFF, site live. Outside checks pass: donate, membership, rare-plant, login, REST all 200 with no PHP errors. Next: post-upgrade items (Site Health, cron, extensions, backups).",
+ "updated": "Oct 24, 2026 3:35 PM MT",
+ "note": "Upgrade done (6.19.1). A1: Site Health still shows 2 critical (PHP session, REST timeout). Cause: CiviCRM calls session_start() on every web request and holds the lock during the loopback. Fix is a tiny mu-plugin, testing on staging first.",
  "sections": [
   {
    "name": "Prerequisites",
@@ -205,8 +205,8 @@
     [
      "A1",
      "Site Health recheck",
-     "open",
-     "PHP session, REST loopback; session fix on staging first if still critical",
+     "doing",
+     "Cause found (Civi session lock). Staging test of inps-session-release.php mu-plugin, then live.",
      ""
     ],
     [
