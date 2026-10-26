@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: INPS Site Health watch
- * Description: Runs WordPress Site Health "direct" tests daily and emails when the set of issues changes. Respects inps-site-health-ignore.php. Delete this file to undo.
+ * Description: Daily: runs Site Health direct tests and lists pending plugin/theme/core updates (major flagged); emails when the set changes. Respects inps-site-health-ignore.php. Delete this file to undo.
  */
 
 define( 'INPS_SH_TO', 'ed@sharpertool.com' );
@@ -52,14 +52,48 @@ function inps_site_health_watch( $force = false ) {
 	}
 
 	ksort( $issues );
-	$sig  = md5( wp_json_encode( $issues ) );
+
+	// Pending updates (plugins, themes, core). Major = first version segment changes.
+	$updates = array();
+	if ( function_exists( 'wp_update_plugins' ) ) {
+		wp_update_plugins();
+		wp_update_themes();
+		wp_version_check();
+	}
+	$maj = function ( $v ) {
+		return (int) preg_replace( '/[^0-9].*$/', '', (string) $v );
+	};
+	$p = get_site_transient( 'update_plugins' );
+	if ( ! empty( $p->response ) ) {
+		$all = get_plugins();
+		foreach ( $p->response as $file => $u ) {
+			$cur  = isset( $all[ $file ]['Version'] ) ? $all[ $file ]['Version'] : '?';
+			$name = isset( $all[ $file ]['Name'] ) ? $all[ $file ]['Name'] : $file;
+			$updates[ 'plugin:' . $file ] = array( ( $maj( $u->new_version ) > $maj( $cur ) ? 'MAJOR' : 'minor' ), "Plugin $name $cur -> {$u->new_version}" );
+		}
+	}
+	$t = get_site_transient( 'update_themes' );
+	if ( ! empty( $t->response ) ) {
+		foreach ( $t->response as $slug => $u ) {
+			$th  = wp_get_theme( $slug );
+			$cur = $th->exists() ? $th->get( 'Version' ) : '?';
+			$updates[ 'theme:' . $slug ] = array( ( $maj( $u['new_version'] ) > $maj( $cur ) ? 'MAJOR' : 'minor' ), "Theme $slug $cur -> {$u['new_version']}" );
+		}
+	}
+	$c = get_site_transient( 'update_core' );
+	if ( ! empty( $c->updates[0]->response ) && 'upgrade' === $c->updates[0]->response ) {
+		$updates['core'] = array( ( $maj( $c->updates[0]->version ) > $maj( get_bloginfo( 'version' ) ) ? 'MAJOR' : 'minor' ), 'WordPress ' . get_bloginfo( 'version' ) . ' -> ' . $c->updates[0]->version );
+	}
+	ksort( $updates );
+
+	$sig  = md5( wp_json_encode( array( $issues, $updates ) ) );
 	$prev = get_option( 'inps_site_health_sig', '' );
 	update_option( 'inps_site_health_sig', $sig, false );
 
 	if ( ! $force && $sig === $prev ) {
 		return;
 	}
-	if ( ! $force && empty( $issues ) && '' === $prev ) {
+	if ( ! $force && empty( $issues ) && empty( $updates ) && '' === $prev ) {
 		return;
 	}
 
@@ -67,10 +101,17 @@ function inps_site_health_watch( $force = false ) {
 	foreach ( $issues as $slug => $i ) {
 		$lines[] = strtoupper( $i[0] ) . ': ' . $i[1] . ' (' . $slug . ')';
 	}
-	$subject = empty( $issues )
-		? "[$host] Site Health: all clear"
-		: "[$host] Site Health: " . count( $issues ) . ' issue(s)';
+	$ulines = array();
+	foreach ( $updates as $k => $i ) {
+		$ulines[] = $i[0] . ': ' . $i[1];
+	}
+	$majors  = count( array_filter( $updates, function ( $i ) {
+		return 'MAJOR' === $i[0];
+	} ) );
+	$subject = "[$host] " . ( $issues ? count( $issues ) . ' Site Health issue(s)' : 'Site Health clear' )
+		. ( $updates ? ', ' . count( $updates ) . ' update(s)' . ( $majors ? " ($majors MAJOR)" : '' ) : ', no updates' );
 	$body = ( $lines ? implode( "\n", $lines ) : 'No issues in the direct tests.' )
+		. "\n\n" . ( $ulines ? "Pending updates:\n" . implode( "\n", $ulines ) : 'No pending updates.' )
 		. "\n\nChecked: direct tests only (the REST, loopback and page-cache async tests are not run from cron)."
 		. "\nSite Health: " . admin_url( 'site-health.php' )
 		. "\nTo ignore an item, add its slug to inps-site-health-ignore.php.\n";
