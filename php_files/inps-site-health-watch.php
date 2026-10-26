@@ -4,7 +4,7 @@
  * Description: Daily: runs Site Health direct tests and lists pending plugin/theme/core updates (major flagged); emails when the set changes. Respects inps-site-health-ignore.php. Delete this file to undo.
  */
 
-define( 'INPS_SH_TO', 'ed@sharpertool.com' );
+define( 'INPS_SH_TO', 'sitesupport@idahonativeplants.org' );
 
 add_action( 'init', function () {
 	if ( ! wp_next_scheduled( 'inps_site_health_watch' ) ) {
