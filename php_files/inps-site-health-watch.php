@@ -28,6 +28,10 @@ function inps_site_health_watch( $force = false ) {
 	$issues     = array();
 
 	foreach ( $tests['direct'] as $slug => $test ) {
+		// The REST test does a loopback request and is unreliable from cron/CLI; the CLI PHP has no opcache.
+		if ( 'rest_availability' === $slug || ( 'opcode_cache' === $slug && 'cli' === PHP_SAPI ) ) {
+			continue;
+		}
 		try {
 			if ( is_string( $test['test'] ) && method_exists( $health, 'get_test_' . $test['test'] ) ) {
 				$r = call_user_func( array( $health, 'get_test_' . $test['test'] ) );
