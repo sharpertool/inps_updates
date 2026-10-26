@@ -88,6 +88,22 @@ function inps_site_health_watch( $force = false ) {
 	if ( ! empty( $c->updates[0]->response ) && 'upgrade' === $c->updates[0]->response ) {
 		$updates['core'] = array( ( $maj( $c->updates[0]->version ) > $maj( get_bloginfo( 'version' ) ) ? 'MAJOR' : 'minor' ), 'WordPress ' . get_bloginfo( 'version' ) . ' -> ' . $c->updates[0]->version );
 	}
+	// CiviCRM: installed vs latest stable (civicrm.org). Any newer release, even a patch, is listed.
+	$civi_cur = '';
+	$all_plugins = get_plugins();
+	if ( ! empty( $all_plugins['civicrm/civicrm.php']['Version'] ) ) {
+		$civi_cur = $all_plugins['civicrm/civicrm.php']['Version'];
+	}
+	if ( $civi_cur ) {
+		$resp = wp_remote_get( 'https://latest.civicrm.org/stable.php', array( 'timeout' => 10 ) );
+		$latest = is_wp_error( $resp ) ? '' : trim( wp_remote_retrieve_body( $resp ) );
+		if ( preg_match( '/^\d+\.\d+\.\d+$/', $latest ) && version_compare( $latest, $civi_cur, '>' ) ) {
+			$a = explode( '.', $civi_cur );
+			$b = explode( '.', $latest );
+			$kind = ( $a[0] !== $b[0] || $a[1] !== $b[1] ) ? 'MAJOR' : 'minor';
+			$updates['civicrm'] = array( $kind, "CiviCRM $civi_cur -> $latest (install via our staging-first upgrade, not the WP Plugins page)" );
+		}
+	}
 	ksort( $updates );
 
 	$sig  = md5( wp_json_encode( array( $issues, $updates ) ) );
@@ -116,6 +132,7 @@ function inps_site_health_watch( $force = false ) {
 		. ( $updates ? ', ' . count( $updates ) . ' update(s)' . ( $majors ? " ($majors MAJOR)" : '' ) : ', no updates' );
 	$body = ( $lines ? implode( "\n", $lines ) : 'No issues in the direct tests.' )
 		. "\n\n" . ( $ulines ? "Pending updates:\n" . implode( "\n", $ulines ) : 'No pending updates.' )
+		. ( $civi_cur ? "\n\nCiviCRM installed: $civi_cur" : '' )
 		. "\n\nChecked: direct tests only (the REST, loopback and page-cache async tests are not run from cron)."
 		. "\nSite Health: " . admin_url( 'site-health.php' )
 		. "\nTo ignore an item, add its slug to inps-site-health-ignore.php.\n";
